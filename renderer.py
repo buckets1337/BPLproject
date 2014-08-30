@@ -23,9 +23,10 @@ class Renderer():
         self.mechImage = pygame.image.load(CONFIG.IMAGE_PATH + 'mech.png')
         self.mechImage.convert()
         self.mechImage = pygame.transform.scale(self.mechImage, (64,64))
+        self.tinyMechImage = pygame.transform.scale(self.mechImage, (32,32))
 
 
-    def render(self, screen, imageList, redList, blueList, console):
+    def render(self, screen, imageList, redList, blueList, console, initiativeOrder):
         '''
         called when the screen refreshes each frame.  Clears the screen and then redraws it
         '''
@@ -38,6 +39,7 @@ class Renderer():
         self.renderConsole(screen, console)
         self.renderMechs(screen, redList, 50)
         self.renderMechs(screen, blueList, 900)
+        self.renderInitiativeOrder(screen, initiativeOrder)
 
         pygame.display.flip()
 
@@ -56,6 +58,7 @@ class Renderer():
             self.renderName(screen, item, xpos, ypos + 70)
             ypos += 128
 
+
     def renderHealthBar(self, screen, mech, xpos, ypos):
         startingHealth = (mech.armor * 2.0) + 2
         healthPercent = int((mech.health / startingHealth)*64)
@@ -72,6 +75,7 @@ class Renderer():
 
         screen.blit(backSurf, background)
         screen.blit(healthSurf, healthBar)
+
 
     def renderHeatBar(self, screen, mech, xpos, ypos):
         heatPercent = int((mech.heat/CONFIG.HEAT_LIMIT)*64)
@@ -94,6 +98,7 @@ class Renderer():
         screen.blit(backSurf, background)
         screen.blit(heatSurf, heatBar)
 
+
     def renderConsole(self, screen, console):
         ypos = console.ypos + console.height
         w = CONFIG.SCREEN_SIZE[0] - 330
@@ -106,6 +111,7 @@ class Renderer():
             messageSurf = self.defaultFont.render(message, True, CONFIG.WHITE)
             screen.blit(messageSurf, (console.xpos, ypos))
             ypos -= 16
+
 
     def renderSides(self, screen):
         if self.redSurf == None or self.blueSurf == None:
@@ -125,6 +131,7 @@ class Renderer():
         screen.blit(self.redSurf,(0,0))
         screen.blit(self.blueSurf,(CONFIG.SCREEN_SIZE[0]-self.blueSurf.get_width(), 0))
 
+
     def renderField(self, screen):
         if not self.backgroundSelected:
             backgroundList = os.listdir(CONFIG.IMAGE_PATH + "battlefields/")
@@ -138,16 +145,44 @@ class Renderer():
             self.backgroundSelected = True
         screen.blit(self.background, (0,0))
 
+
     def renderName(self, screen, mech, xpos, ypos):
         nameSurf = self.defaultFont.render(mech.name, True, CONFIG.WHITE)
         screen.blit(nameSurf, (xpos, ypos))
 
-    def renderPlayerBackground(self, screen, xpos, ypos, team):
-        if team == 'red':
-            background = pygame.Surface((80, 100))
-            background.fill(CONFIG.RED)
-        elif team == 'blue':
-            pass
+
+    def renderInitiativeOrder(self, screen, initiativeOrder):
+        initSurf = pygame.Surface((675, 48))
+        initSurf.fill(CONFIG.BLACK)
+        xloc = 32
+        for mech in initiativeOrder:
+            if mech.team == "Red":
+                imgBack = pygame.Surface((36,36))
+                imgBack.fill(CONFIG.RED)
+
+            elif mech.team == "Blue":
+                imgBack = pygame.Surface((36,36))
+                imgBack.fill(CONFIG.BLUE)
+
+            initSurf.blit(imgBack, (xloc-2, 6))
+
+            if mech.tinyImage != None:
+                initSurf.blit(mech.tinyImage, (xloc, 8))
+            else:
+                initSurf.blit(self.tinyMechImage, (xloc, 8))
+            xloc += 48
+
+
+        screen.blit(initSurf, (175, 0))
+
+
+
+    # def renderPlayerBackground(self, screen, xpos, ypos, team):
+    #     if team == 'red':
+    #         background = pygame.Surface((80, 100))
+    #         background.fill(CONFIG.RED)
+    #     elif team == 'blue':
+    #         pass
 
 
 class Console():

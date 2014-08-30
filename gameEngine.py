@@ -19,6 +19,7 @@ class GameEngine():
 
 		self.rollForInitiative()
 
+
 	def checkForWinner(self):
 		if self.redTeamList == [] and self.blueTeamList == []:
 			self.console.messageList.insert(0, "Everyone Died!  It's a Tie!")
@@ -31,6 +32,7 @@ class GameEngine():
 			return True
 		else:
 			return False
+
 
 	def rollForInitiative(self):
 		totalMechList = self.redTeamList + self.blueTeamList
@@ -75,7 +77,6 @@ class GameEngine():
 
 		self.resolveDamage()
 		self.console.messageList.insert(0, '')
-
 
 
 	def turn(self):
@@ -149,6 +150,7 @@ class GameEngine():
 
 
 		#self.console.messageList = []
+
 
 	def resolveDamage(self):
 		'''

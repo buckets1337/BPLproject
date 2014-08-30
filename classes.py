@@ -14,8 +14,6 @@ class Avatar():
     '''
     an avatar is a representation of a player.  It is constructed from data obtained from the RFID readers, and does the battling.
     '''
-
-
     def __init__(self, rfidString, team, console):
         self.FileLoader = fileLoader.FileLoader()
 
@@ -24,12 +22,18 @@ class Avatar():
         self.definition = rfidString
         self.ID = self.definition[0] + self.definition[1]
         self.name = IDs.playerList[int(self.ID)-1][0]
+
+        self.tinyImage = None
         if IDs.playerList[int(self.ID)-1][1] != None:
             self.image = IDs.playerList[int(self.ID)-1][1]
         else:
             self.image = None
+
         if self.image != None:
+            print "WIN"
             self.loadImage()
+            print self.tinyImage
+
         self.heatSinks = int(self.definition[2])
         self.armor = int(self.definition[3])
         self.weapon1ID = self.definition[4:6]
@@ -53,6 +57,7 @@ class Avatar():
     def cooling(self):
         cooling = self.heatSinks + 1
         return cooling
+
 
     @property
     def evasion(self):
@@ -80,6 +85,7 @@ class Avatar():
         self.image = pygame.image.load(CONFIG.IMAGE_PATH + imagePath)
         self.image.convert()
         self.image = pygame.transform.scale(self.image, (64, 64))
+        self.tinyImage = pygame.transform.scale(self.image, (32, 32))
 
 
     def setupWeapons(self):
@@ -110,7 +116,6 @@ class Avatar():
                 newWeapon.owner = self
                 newWeapon.console = self.console
             self.weapons.append(newWeapon)
-
 
 
     def attack(self, target, weapon, enemyList):
@@ -236,7 +241,7 @@ class Weapon():
             else:
                 messageString = str(self.owner.name).capitalize() + " missed " + str(target.name).capitalize() + " with the " + self.name + "! (" + str(hitRoll) + ":" + str(target.evasion) + ")"
                 self.console.messageList.insert(0, messageString)
-                return False
+                return True
         else:
             if hitRoll > 10:
                 target.damageTaken += 1

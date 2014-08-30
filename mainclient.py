@@ -34,7 +34,7 @@ while True:
 
     screen = InputHandler.handleEvents(GameEngine, screen)
 
-    RenderEngine.render(screen, renderList, avatarListRed, avatarListBlue, Console)
+    RenderEngine.render(screen, renderList, avatarListRed, avatarListBlue, Console, GameEngine.initiativeOrder)
 
 
 
