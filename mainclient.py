@@ -12,6 +12,7 @@ pygame.init()
 
 screen = pygame.display.set_mode(CONFIG.SCREEN_SIZE)
 renderList = []
+gameState = 'normal'
 
 RenderEngine = renderer.Renderer(screen, renderList)
 InputHandler = inputHandler.InputHandler()
@@ -32,9 +33,9 @@ while True:
 
     Clock.tick(20)
 
-    screen = InputHandler.handleEvents(GameEngine, screen)
+    screen, gameState = InputHandler.handleEvents(gameState, GameEngine, screen)
 
-    RenderEngine.render(screen, renderList, avatarListRed, avatarListBlue, Console, GameEngine.initiativeOrder)
+    RenderEngine.render(gameState, screen, renderList, avatarListRed, avatarListBlue, Console, GameEngine.initiativeOrder)
 
 
 

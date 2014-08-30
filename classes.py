@@ -30,9 +30,9 @@ class Avatar():
             self.image = None
 
         if self.image != None:
-            print "WIN"
+            #print "WIN"
             self.loadImage()
-            print self.tinyImage
+            #print self.tinyImage
 
         self.heatSinks = int(self.definition[2])
         self.armor = int(self.definition[3])
@@ -118,28 +118,28 @@ class Avatar():
             self.weapons.append(newWeapon)
 
 
-    def attack(self, target, weapon, enemyList):
+    def attack(self, gameState, target, weapon, enemyList):
         '''
         deal attack damage to one target
         '''
         if weapon.rate == 1:
-            didFire = weapon.fire(target)
+            didFire, gameState = weapon.fire(gameState, target)
             if weapon.splash != 0 and didFire:
                 i = weapon.splash
                 while i > 0:
                     newTarget = self.selectTarget(enemyList)
                     if newTarget == target:
                         continue
-                    weapon.fire(newTarget, splashShot=True)
+                    didFire, gameState = weapon.fire(gameState, newTarget, splashShot=True)
                     i -= 1
         else:
             i = weapon.rate
             while i > 0:
                 newTarget = self.selectTarget(enemyList)
                 if i == 1:
-                    didFire = weapon.fire(newTarget)
+                    didFire, gameState = weapon.fire(gameState, newTarget)
                 else:
-                    didFire = weapon.fire(newTarget, rateShot=True)
+                    didFire, gameState = weapon.fire(gameState, newTarget, rateShot=True)
                 i -= 1
 
             if weapon.splash != 0:
@@ -148,7 +148,7 @@ class Avatar():
                     newTarget = self.selectTarget(enemyList)
                     if newTarget == target:
                         continue
-                    weapon.fire(newTarget, splashShot=True)
+                    didFire, gameState = weapon.fire(gameState, newTarget, splashShot=True)
                     i -= 1
 
         if didFire:
@@ -157,6 +157,8 @@ class Avatar():
             weapon.ammo -= 1
             if self.coolOff == True:
                 self.coolOff = False
+
+        return gameState
 
 
     def selectTarget(self, enemyList):
@@ -200,14 +202,18 @@ class Weapon():
         self.speedPenalty = (self.firepower*2) + self.tracking + self.splash + self.ammo + (self.rate * self.firepower)
 
 
-    def fire(self, target, rateShot=False, splashShot=False):
+    def fire(self, gameState, target, rateShot=False, splashShot=False):
         '''
         handles one shot of the weapon at the given target
         '''
+        if gameState == 'animation':        # the animation has not finished from the last shot.
+            self.animate()
+            return False, gameState
+
         if self.owner.coolOff == True:
             messageString =  str(self.owner.name).capitalize() + " is cooling off."
             self.console.messageList.insert(0,messageString)
-            return False
+            return False, gameState
 
         targetDamageMod = 0 - target.evasion
         if targetDamageMod < 0:
@@ -217,7 +223,7 @@ class Weapon():
             self.coolDown()
             messageString =  str(self.owner.name).capitalize() + " is cooling off."
             self.console.messageList.insert(0,messageString)
-            return False
+            return False, gameState
 
         if self.ammo <= 0:
             if rateShot == False:
@@ -226,7 +232,7 @@ class Weapon():
             elif rateShot:
                 messageString = str(self.owner.name).capitalize() + "'s " + str(self.name) + " is out of ammo!"
             self.console.messageList.insert(0,messageString)
-            return False
+            return False, gameState
 
         hitBonus = 0
         hitBonus = hitBonus + (self.tracking * 2) - self.rate
@@ -237,19 +243,19 @@ class Weapon():
                 target.damageTaken += self.firepower + targetDamageMod
                 messageString =  str(self.owner.name).capitalize() + " fires the " + self.name + " at " + str(target.name).capitalize() + " for " + str(self.firepower + targetDamageMod) + " damage. (" + str(hitRoll) + ":" + str(target.evasion) + ")"
                 self.console.messageList.insert(0, messageString)
-                return True
+                return True, gameState
             else:
                 messageString = str(self.owner.name).capitalize() + " missed " + str(target.name).capitalize() + " with the " + self.name + "! (" + str(hitRoll) + ":" + str(target.evasion) + ")"
                 self.console.messageList.insert(0, messageString)
-                return True
+                return True, gameState
         else:
             if hitRoll > 10:
                 target.damageTaken += 1
                 messageString = str(self.owner.name).capitalize() + " catches " + str(target.name).capitalize() + " in the explosion from the " + self.name + " for " + str(1) + " damage."
                 self.console.messageList.insert(0, messageString)
-                return True
+                return True, gameState
             else:
-                return False
+                return False, gameState
 
 
     def reload(self):
@@ -273,4 +279,9 @@ class Weapon():
         self.console.messageList.append(messageString)
 
 
+    def animate(self):
+        '''
+        plays the weapon's animation when fired
+        '''
+        pass
 

@@ -26,13 +26,12 @@ class Renderer():
         self.tinyMechImage = pygame.transform.scale(self.mechImage, (32,32))
 
 
-    def render(self, screen, imageList, redList, blueList, console, initiativeOrder):
+    def render(self, gameState, screen, imageList, redList, blueList, console, initiativeOrder):
         '''
         called when the screen refreshes each frame.  Clears the screen and then redraws it
         '''
-        black = 0,0,0
 
-        screen.fill(black)
+        screen.fill(CONFIG.BLACK)
 
         self.renderField(screen)
         self.renderSides(screen)
@@ -176,13 +175,11 @@ class Renderer():
         screen.blit(initSurf, (175, 0))
 
 
-
-    # def renderPlayerBackground(self, screen, xpos, ypos, team):
-    #     if team == 'red':
-    #         background = pygame.Surface((80, 100))
-    #         background.fill(CONFIG.RED)
-    #     elif team == 'blue':
-    #         pass
+    def renderAnimation(self):
+        '''
+        draws an animation to the screen
+        '''
+        pass
 
 
 class Console():

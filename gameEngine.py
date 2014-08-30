@@ -60,7 +60,7 @@ class GameEngine():
 		#print self.initiativeOrder
 
 
-	def round(self, mech):
+	def round(self, mech, gameState):
 		'''
 		one mech's actions in a turn
 		'''
@@ -73,13 +73,14 @@ class GameEngine():
 				#print gun
 			if gun != None and gun != 'None':
 					target = mech.selectTarget(targets)
-					mech.attack(target, gun, targets)
+					gameState = mech.attack(gameState, target, gun, targets)
 
 		self.resolveDamage()
 		self.console.messageList.insert(0, '')
+		return gameState
 
 
-	def turn(self):
+	def turn(self, gameState):
 		'''
 		handles running one game turn
 		'''
@@ -95,7 +96,7 @@ class GameEngine():
 
 		if len(self.initiativeOrder) > 0:
 			mech = self.initiativeOrder.pop(0)
-			self.round(mech)
+			gameState = self.round(mech, gameState)
 
 		# for mech in self.redTeamList:
 		# 	#print mech.weapons
@@ -147,6 +148,8 @@ class GameEngine():
 
 			self.redTeamDamage = 0
 			self.blueTeamDamage = 0
+
+		return gameState
 
 
 		#self.console.messageList = []

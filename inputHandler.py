@@ -10,23 +10,23 @@ class InputHandler():
 	def __init__(self):
 		pass
 
-	def handleEvents(self, gameEngine, screen):
+	def handleEvents(self, gameState, gameEngine, screen):
 		'''
 		handles input events
 		'''
+		if gameState == 'normal':
+			for event in pygame.event.get():
 
-		for event in pygame.event.get():
-
-			if event.type == pygame.QUIT:
-				sys.exit()
-			if event.type == KEYDOWN:
-				if event.key == K_ESCAPE:
+				if event.type == pygame.QUIT:
 					sys.exit()
-				if event.key == K_SPACE:
-					gameEngine.turn()
-				if event.key == K_F12:
-					screen = self.toggle_fullscreen()
-		return screen
+				if event.type == KEYDOWN:
+					if event.key == K_ESCAPE:
+						sys.exit()
+					if event.key == K_SPACE:
+						gameState = gameEngine.turn(gameState)
+					if event.key == K_F12:
+						screen = self.toggle_fullscreen()
+		return screen, gameState
 
 	def toggle_fullscreen(self):
 		screen = pygame.display.get_surface()
