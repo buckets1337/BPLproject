@@ -30,11 +30,13 @@ Clock = pygame.time.Clock()
 
 while True:
 
+    Clock.tick(20)
+
     screen = InputHandler.handleEvents(GameEngine, screen)
 
     RenderEngine.render(screen, renderList, avatarListRed, avatarListBlue, Console)
 
-    Clock.tick(20)
+
 
 
 

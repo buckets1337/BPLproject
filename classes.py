@@ -44,7 +44,10 @@ class Avatar():
         self.weapons = []
         self.setupWeapons()
         self.coolOff = False
-        #print self.weapons
+
+        initMod = random.randrange(75,125)
+        self.initiative = int((self.evasion * initMod) / 100)
+
 
     @property
     def cooling(self):
