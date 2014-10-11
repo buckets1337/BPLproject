@@ -5,18 +5,20 @@
 #1. player name
 #2. avatar image filename
 
+#NOTE: THIS WILL CHANGE ONCE PIXEL ARRAYS ARE USED FOR PLAYER IMAGES
+
 playerList = (
 
-['justin', 'SharePoint\Justin Lomelino.jpg'],
-['john', 'SharePoint\Jon Whited, IT Manager.jpg'],
-['kerrie', 'SharePoint\Kerrie Parker, Webmaster.jpg'],
-['joe', None],
-['bill', None],
-['Paul', 'SharePoint\Paul Short.jpg'],
-['henry', 'SharePoint\Henry Birmingham.jpg'],
-['devon', 'SharePoint\Volunteer - Devon Phifer.jpg'],
-['tina', None],
-['claudette', None],
-['dog?', None]
+['justin', 'SharePoint\Justin Lomelino.jpg', None],
+['john', 'SharePoint\Jon Whited, IT Manager.jpg', None],
+['kerrie', 'SharePoint\Kerrie Parker, Webmaster.jpg', None],
+['joe', None, None],
+['bill', None, None],
+['Paul', 'SharePoint\Paul Short.jpg', None],
+['henry', 'SharePoint\Henry Birmingham.jpg', None],
+['devon', 'SharePoint\Volunteer - Devon Phifer.jpg', None],
+['tina', None, None],
+['claudette', None, None],
+['dog?', None, None]
 
 )

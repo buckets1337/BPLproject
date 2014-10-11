@@ -21,6 +21,7 @@ HEAT_LIMIT = 10.0
 BASE_EVASION = 35.0
 
 
-### WEAPON REGISTER ###
+##### WEAPON REGISTER #####
+# weapons must be in this list to be used in the game.
 WEAPON_REGISTER = [None, 'SlugGun', 'MachineGun', 'Mortar']
 
