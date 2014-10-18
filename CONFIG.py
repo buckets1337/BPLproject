@@ -3,8 +3,9 @@
 
 SCREEN_SIZE = width,height = 1024,768
 IMAGE_PATH = 'c:\Users\Justin\Pictures\\'
-RED_TEAM_PATH = "C:\Users\Justin\Documents\Python\BPLPrototype\\redTeam.txt"
-BLUE_TEAM_PATH = 'C:\Users\Justin\Documents\Python\BPLPrototype\\blueTeam.txt'
+PIXEL_ARRAY_PATH = 'c:\Users\Justin\Documents\Python\BPLproject-master\pixelArrays\\'
+RED_TEAM_PATH = "C:\Users\Justin\Documents\Python\BPLproject-master\\redTeam.txt"
+BLUE_TEAM_PATH = 'C:\Users\Justin\Documents\Python\BPLproject-master\\blueTeam.txt'
 
 BLACK = (0,0,0)
 WHITE = (255,255,255)
@@ -21,6 +22,7 @@ HEAT_LIMIT = 10.0
 BASE_EVASION = 35.0
 
 
-### WEAPON REGISTER ###
+##### WEAPON REGISTER #####
+# weapons must be in this list to be used in the game.
 WEAPON_REGISTER = [None, 'SlugGun', 'MachineGun', 'Mortar']
 

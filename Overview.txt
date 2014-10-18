@@ -1,0 +1,128 @@
+# Overview.txt
+# describes the files in the directory and what they do
+
+
+
+Welcome and congratulations!  You've chosen to begin the most helpful activity possible when it comes to learning code: reading things! 
+I encourage you to spend time reading through each file in this directory.  I have left comments throughout each file, describing exactly what is happening
+at the point of the comment.  You can recognize comments in python code easily, as each comment begins with the '#' character.  If the character is at the
+start of a line, then the computer ignores the entire line, and anything after the '#' is intended to be read by you rather than the computer, to help you understand what is happening.
+If the '#' character is located in the middle of the line, then anything after the '#' character is the comment, but the computer will still attempt to run anything
+that comes before the '#' character.
+
+
+
+This file exists to help explain what each file in the directory is doing, and also to give a general description of how the game works.  So, let's begin!
+
+All computer games are essentially traditional board games, just generally run at very fast speeds, with all the rules of the game handled by the computer.
+  In general, every game you have ever played is contained within a single loop of instructions which repeats itself over and over until you quit playing 
+  the game.  It is helpful to think of each cycle through this loop as one 'turn' in the game (even though the game may be running through 60 turns in one
+  second, and very little may actually happen each 'turn'!)  In our game, 'turns' happen 20 times each second.  On each 'turn', the computer checks if a key 
+  on the keyboard has been pressed at any time since the last 'turn'. If a button has been pressed, the code in "inputHandler.py" will run, causing different 
+  things to happen based on what key was pressed.  After the computer has resolved this check and any consequences of keys pressed, it then redraws the entire 
+  screen to represent any changes.  Since this happens 20 times each second, the entire process appears to happen instantly to us!  You can speed up and slow 
+  down the number of turns that happen each second by changing a single line in "mainclient.py", which is indicated there.  Our game continues to run 'turns', 
+  20 times each second(or however many times you have set it to run in a second), until one side has won the battle, or you close the window that the game is running in.  
+
+
+
+Below is a list of all the files in this directory, and what each file does generally.
+
+
+  mainclient.py -  		This is the main file of the game.  In this file, we set up the game, creating the objects that we need to run it, and then the main loop of the game
+  				   		at the bottom of the file is run repeatedly until the game has ended.  Both the setup section and the main loop have been indicated for you in 
+  				   		the comments.
+
+
+  classes.py -     		This file describes the classes our game uses to represent the mechs and the weapons the mechs have equipped.  In python, a class is like a blueprint 
+  			       		for some sort of object.  For example, you can find the 'Weapon' class in this file.  The 'Weapon' class describes the attributes of a weapon (any weapon!) 
+  			       		and then contains instructions for what should happen when the weapon is fired, when it is reloaded, and when it needs to cool down.  Note that we just
+  			      		have to tell the computer what to do when these events happen at some point in the future.  The computer will decide for us and handle running these
+  			     		instructions when those events (fire, reload, etc) actually happen in the game.  Comments in this file try to describe what each section of this blueprint
+  			      		means, and how or why it might be run by the computer during our game
+
+
+  inputHandler.py - 	This file tells the computer what to do when a key on the keyboard is pressed.  It doesn't actually do anything itself, but rather directs the computer
+  						to the proper code to run, depending on what key is pressed.  This, along with "gameEngine.py", is the file that actually causes things to happen in our
+  						game when we control it with the keyboard.  
+
+
+  gameEngine.py -		This file is the counterpart to "inputHandler.py".  While "inputHandler.py" detects when a key on the keyboard has been pressed, "gameEngine.py" actually
+  				  		contains the directions for the computer to follow when a key has been pressed.  Additionally, it contains the code that describes how a 'turn' and a 'round'
+  				 		work, from the player's perspective.  Note, that the 'turn' and 'round' described in this file are different from the 'turn' described by the main game
+  				  		loop in "mainclient.py".  The 'turn' and 'round' described by this file do not happen 20 times per second.  Rather, these 'turns' can take as long as it takes
+  				  		for the player to run through the combat of each mech, possibly lasting minutes or longer!  In any case, the important thing to keep in mind when reading
+  				  		this file is that all of this code is describing to the computer what to do when things happen in your game.  Along with "mainclient.py", this file is where
+  				  		most of the game lives.
+
+
+  renderer.py - 		This file contains class definitions for the 'Renderer' and the 'Console'.  The 'Console' is the text in the middle of the screen while the game is running, 
+  						describing what is happening in the game.  The 'Renderer' is a special class, and itself does not represent an object in the game.  It is an 'invisible' object,
+  						but extremely important, as the 'Renderer' object handles drawing everything else you see on the screen while the game is running.  This class is made to run a set
+  						of instructions that tell the computer exactly what it should draw on the screen, and where to draw it.  The 'Renderer' ALWAYS runs this code each time the game
+  						loops through it's main loop.  Thus, the screen is redrawn by the 'Renderer' 20 times each second, giving us a "framerate" of 20 frames per second.  Without the
+  						'Renderer' object that is described by the 'Renderer' class definition, our game window would simply be a black screen, and we would not see any of the changes
+  						happening in the game (even though they would still happen!  They just wouldn't show up on our screen.)
+
+
+  fileLoader.py - 		This file contains a class definition for another 'invisible' object, the 'FileLoader'.  The 'FileLoader' is responsible for loading information from other
+  				  		files in a way that our game can understand.  It is used to set the stats for the mechs in the battle from the file created by the RFID pad.  It also sets the
+  				  		name of each player/mech, and tells the computer where the instructions to draw your picture are located.  Without 'fileLoader.py', it would not be possible to
+  				 		 have mechs with different stats, or pictures for the mechs, or names.
+
+
+  CONFIG.py - 			'CONFIG.py' is a little different from the other files.  This file describes settings for the game.  The variables that are defined in this file tell the computer
+  			  			things like what resolution the game should be displayed at, what weapons are available to the mechs, and what colors such as "BLACK" and "RED" actually mean.  The
+  			 			contents of this file can be changed in order to make quick tweaks to how the game runs, without making any major changes to how the game itself actually works.
+
+
+  dummyRFID.txt, - 		These files are examples of the kind of files that the RFID pad and 'RFIDreader.py' will create.  The files also help to explain the information contained in
+  dummyRFID2.tx    		these files, to help make some sense of how mech stats are entered in to the game.  They are included as a helpful reference, but actually are never run in our
+  				   		game.  Changes to these files will not affect how the game runs in any way.
+
+
+  redTeam.txt,  - 		These files are the 'real' version of the example files 'dummyRFID.txt' and 'dummyRFID2.txt'.  They are formatted in the same manner as described by the 'dummyRFID' files,
+  blueTeam.txt.  		but these files will actually be run by the game.  Changes to these files will be reflected by changes to the stats of the mechs in the battle.  It is possible to
+  				  		have more files like these with different names in order to create more teams of mechs.  For example, 'yellowTeam.txt' or 'greenTeam.txt'.  In general, it is easiest
+  				  		to use the small program described in 'RFIDreader.py' to create these files automatically for you, as a small mistake can easily cause unexpected results or break the
+  				  		game.
+
+
+  IDs.py - 				This file simply describes which players will be in the game, what they will be called, and which set of instructions should be used to draw their picture.  It is possible to 
+  		   				still run the game without this file; however, no one will get a name or a picture if you do.  The format to be used in the file is described by the comment at the beginning
+  		   				of the file.
+
+
+  Overview.txt - 		This file!  Gives a description of what each of the other files are doing in our game.
+
+
+  README.md,  - 		These files are not used in the game, but are just included for backup purposes.  You can ignore these files, as they don't tell you anything useful.
+  .gitignore
+
+
+
+##### MAIN PROGRAM FLOW #####
+
+When the game is first started, pygame is told to start and we load in some invisible objects to handle things like drawing the screen and checking for key presses.  It also loads in
+the stats for the mechs on each team, and sets each team up on a side of the battlefield.  The order of attack is determined, using evasion stats, with some randomness.  This order is 
+displayed at the top of the screen.
+
+Then, the main loop begins to run.  20 times each second, the computer checks for a key press, and then redraws the screen, until a key on the keyboard is pressed.
+
+If a key is pressed, the InputHandler object tells the computer which code it should run.
+
+If the key pressed is spacebar, GameEngine runs through one game 'round' (one mech picking targets and firing at them).  The mech that gets to fire is the first mech pictured to the furthest
+left in the queue at the top of the screen.  Once all mechs in the queue have had a 'round', one 'turn' is complete, and the queue is remade again, based on the mechs' evasion stat, with some randomness.
+
+Each round, every weapon the mech has will attempt to pick a target and fire.  This is handled by the Avatar object representing the mech.  If the weapon is out of ammo or the mech is overheating, 
+the weapon does not fire, and instead the mech reloads the weapon or cools off.
+
+When a weapon is fired, a die is rolled.  If the die is greater than the target's evasion, the target is hit, and will take damage.  Otherwise, the target is missed.
+
+If a weapon has 'splash', it will also damage mechs other than the target when fired.  If a weapon has rapid fire, it will take more than one shot in each 'round'.
+
+If a mech takes more damage than it has available, then the Avatar object representing the mech will run the 'death' routine for that mech, removing it from the team it is on and preventing
+it from firing for the rest of the game.
+
+Mechs continue to take 'rounds', firing all the weapons they have that are ready and available, until one side has lost all the mechs on it's team.  When this happens, the team with remaining
+mechs wins, and the game is over.
