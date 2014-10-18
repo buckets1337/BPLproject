@@ -12,7 +12,7 @@ playerList = (
 ['justin', 'SharePoint\Justin Lomelino.jpg', None],
 ['john', 'SharePoint\Jon Whited, IT Manager.jpg', None],
 ['kerrie', 'SharePoint\Kerrie Parker, Webmaster.jpg', None],
-['joe', None, None],
+['joe', None, 'demoPixelArray'],
 ['bill', None, None],
 ['Paul', 'SharePoint\Paul Short.jpg', None],
 ['henry', 'SharePoint\Henry Birmingham.jpg', None],

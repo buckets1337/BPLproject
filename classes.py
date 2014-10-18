@@ -48,10 +48,9 @@ class Avatar():
 
         # set the picture for the mech
         if self.image != None:
-            if self.pixelArray != None:
-                self.loadImage(self.pixelArray)
-            else:
-                self.loadImage()
+            self.loadImage()
+        if self.pixelArray != None:
+            self.loadImage(pixelArray=self.pixelArray, pixelArrayLocation=CONFIG.PIXEL_ARRAY_PATH)
 
         # in this section, we assign the stats to the mech.  These stats are all derived from the file created by RFIDreader.py and loaded in by the mech's FileLoader object
         self.heatSinks = int(self.definition[2])
@@ -100,15 +99,23 @@ class Avatar():
 
 
     # This handles loading in the player image to the mech.  It will redirect the computer to the instructions you wrote to draw your picture.
-    def loadImage(self, pixelArray = None):
+    def loadImage(self, pixelArray = None, pixelArrayLocation = None):
         '''
         loads a custom image as defined in IDs.py
         '''
-        imagePath = self.image
-        self.image = pygame.image.load(CONFIG.IMAGE_PATH + imagePath)
-        self.image.convert()
-        self.image = pygame.transform.scale(self.image, (64, 64))
-        self.tinyImage = pygame.transform.scale(self.image, (32, 32))
+        if pixelArray == None:
+            imagePath = self.image
+            self.image = pygame.image.load(CONFIG.IMAGE_PATH + imagePath)
+            self.image.convert()
+            self.image = pygame.transform.scale(self.image, (64, 64))
+            self.tinyImage = pygame.transform.scale(self.image, (32, 32))
+        else:
+            pixelArrayList = self.FileLoader.loadPixelArrays(pixelArrayLocation)
+            self.imageObj = pixelArrayList[pixelArray].exampleArray()
+            self.image = self.imageObj.surf
+            self.image.convert()
+            self.image = pygame.transform.scale(self.image, (64,64))
+            self.tinyImage = pygame.transform.scale(self.image, (32,32))
 
 
 

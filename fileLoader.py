@@ -96,4 +96,32 @@ class FileLoader():
         return weaponDict
 
 
+    def loadPixelArrays(self, directory):
+        '''
+        loads all of the functions used for creating pixelArrays for player images
+        '''
+
+        # make a list of all the pixelArray definitions in the pixelArray directory
+        fileList = os.listdir(directory)
+
+        # create a place to store pixelArray objects that are created
+        pixelArrayDict = {}
+
+        # for each pixelArray definition, strip the file extension
+        for pixelArray in fileList:
+            if pixelArray.endswith('.py'):
+                pixelArray = pixelArray[:-3]
+            elif pixelArray.endswith('.pyc'):
+                pixelArray = pixelArray[:-4]
+
+            # pull the pixelArray function in and run it, creating a new image
+            pixelArrayFile = imp.find_module(pixelArray, [directory])
+            pixelArrayModule = imp.load_module(pixelArray, pixelArrayFile[0], pixelArrayFile[1], ('.py', 'r', imp.PY_SOURCE) )
+
+            # add the pixelArray to our list of created pixelArrays
+            pixelArrayDict[pixelArray] = pixelArrayModule
+
+        # return the list of created pixelArrays
+        return pixelArrayDict
+
 
