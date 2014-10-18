@@ -125,7 +125,7 @@ class Avatar():
         configures the mech's weapons when the mech is created
         '''
         
-        weaponDefList = self.FileLoader.loadWeaponModules('Weapons')
+        weaponDefList = self.FileLoader.loadWeaponModules(CONFIG.WEAPON_PATH)
         newWeapon1ID = CONFIG.WEAPON_REGISTER[int(self.weapon1ID)]
         newWeapon2ID = CONFIG.WEAPON_REGISTER[int(self.weapon2ID)]
         newWeapon3ID = CONFIG.WEAPON_REGISTER[int(self.weapon3ID)]
@@ -133,6 +133,7 @@ class Avatar():
 
         newWeaponIDList = [newWeapon1ID, newWeapon2ID, newWeapon3ID, newWeapon4ID]
 
+        # this is where each possible weapon has to be defined, in a separate if statement
         for weapon in newWeaponIDList:
             if weapon == 'SlugGun':
                 newWeapon = weaponDefList['SlugGun'].SlugGun()
