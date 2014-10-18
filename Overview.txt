@@ -93,11 +93,23 @@ Below is a list of all the files in this directory, and what each file does gene
   		   				of the file.
 
 
-  Overview.txt - 		This file!  Gives a description of what each of the other files are doing in our game.
+  Overview.txt - 		This file gives a description of what each of the other files are doing in our game.
 
 
   README.md,  - 		These files are not used in the game, but are just included for backup purposes.  You can ignore these files, as they don't tell you anything useful.
   .gitignore
+
+
+Pictures/ -     This directory contains images used in the game.  Adding more images to the 'battlefields' subdirectory will cause the new pictures to occasionally show up as the background
+            during a game.
+
+
+Weapons/ -  This directory contains weapon definition files for weapons that the mechs may have equipped.  Adding new definitions in here allows you to create new weapons in the game
+
+
+pixelArrays/ -  This directory contains pixelArray definitions that are to be used as player portraits in the game.
+
+
 
 
 

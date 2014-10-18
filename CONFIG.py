@@ -2,10 +2,11 @@
 #handles configuration variables
 
 SCREEN_SIZE = width,height = 1024,768
-IMAGE_PATH = 'c:\Users\Justin\Pictures\\'
-PIXEL_ARRAY_PATH = 'c:\Users\Justin\Documents\Python\BPLproject-master\pixelArrays\\'
-RED_TEAM_PATH = "C:\Users\Justin\Documents\Python\BPLproject-master\\redTeam.txt"
-BLUE_TEAM_PATH = 'C:\Users\Justin\Documents\Python\BPLproject-master\\blueTeam.txt'
+IMAGE_PATH = 'Pictures\\'
+WEAPON_PATH = 'Weapons'
+PIXEL_ARRAY_PATH = 'pixelArrays'
+RED_TEAM_PATH = 'redTeam.txt'
+BLUE_TEAM_PATH = 'blueTeam.txt'
 
 BLACK = (0,0,0)
 WHITE = (255,255,255)
